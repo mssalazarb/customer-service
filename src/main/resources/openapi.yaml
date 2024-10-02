@@ -1,0 +1,182 @@
+openapi: 3.0.3
+info:
+  title: Customer-Service - OpenAPI 3.0
+  description: |-
+    <div style="text-align: justify;">
+      <h3>Maestría en Software - Diseño de patrones de API</h3>
+    
+      <img src="https://blogposgrados.ups.edu.ec/hs-fs/hubfs/Logo-Posgrados.png?width=1517&height=262&name=Logo-Posgrados.png" alt="Image" align="right" width="400"/>
+    
+      <p>This is a contract to manage customer data based on the OpenAPI 3.0 specification. This contract uses the API First-Contract principle to standardize the creation of endpoints to be used in our service and improve the development of our APIs.</p> 
+    </div>
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: cchotoc@est.ups.edu.ec
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0-SNAPSHOT
+externalDocs:
+  description: Historia de usuario
+  url: https://github.com/users/mssalazarb/projects/6/views/1?pane=issue&itemId=80821510
+servers:
+  - url: http://localhost:8090/api/v1
+    description: Service
+  - url: http://localhost:8080/api/v1
+    description: API Gateway
+tags:
+  - name: customer
+    description: Everything about customers
+paths:
+  /customer:
+    post:
+      tags:
+        - customer
+      summary: Create a new customer
+      description: Create a new customer with a unique ID
+      operationId: createCustomer
+      parameters:
+        - name: x-sw-client-request-id
+          in: header
+          description: Unique ID for the request
+          required: true
+          schema:
+            type: string
+        - name: x-sw-client-user-agent
+          in: header
+          description: Type of device consume endpoint
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Created customer object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerDto'
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerDto'
+              example:
+                id: 1
+                identification: 1719554466
+                firstname: Cristian
+                lastname: Choto
+                genre: MALE
+
+        '400':
+          description: Error when creating the client due to a syntax error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                invalidIdentificationFormat:
+                  summary: Invalid identification format
+                  value:
+                    title: "Bad Request"
+                    detail: "Some files are incorrect"
+                    errors:
+                      - message: "The identification format is invalid."
+                    status: 400
+                invalidIdentificationLength:
+                  summary: Invalid identification length
+                  value:
+                    title: "Bad Request"
+                    detail: "Some files are incorrect"
+                    errors:
+                      - message: "The identification must not exceed 13 characters."
+                    status: 400
+    get:
+      tags:
+        - customer
+      summary: Get a customer by Id
+      description: Retrieve a customer's details by their unique Id.
+      operationId: findCustomerById
+      parameters:
+        - name: x-sw-client-request-id
+          in: header
+          description: Unique ID for the request
+          required: true
+          schema:
+            type: string
+        - name: x-sw-client-user-agent
+          in: header
+          description: Type of device consume endpoint
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: query
+          required: true
+          description: Unique ID of the customer to retrieve
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Customer found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerDto'
+              example:
+                id: 1
+                identification: 1719554466
+                firstname: Cristian
+                lastname: Choto
+                genre: MALE
+        '204':
+          description: Customer not found
+          content:
+            application/json:
+              schema:
+                type: object
+components:
+  schemas:
+    CustomerDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        identification:
+          type: string
+          maxLength: 13
+        firstName:
+          type: string
+        lastName:
+          type: string
+        genre:
+          type: string
+          enum:
+            - MALE
+            - FEMALE
+      required:
+        - identification
+        - firstName
+        - lastName
+        - genre
+    Error:
+      type: object
+      properties:
+        title:
+          type: string
+        detail:
+          type: string
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+        status:
+          type: integer
+    ErrorDetail:
+      type: object
+      properties:
+        message:
+          type: string
