@@ -6,6 +6,7 @@ import com.msa.service.customer.domain.models.Customer;
 import com.msa.service.customer.domain.ports.in.CustomerService;
 import com.msa.service.customer.domain.ports.out.CustomerRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 @AllArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
@@ -14,6 +15,7 @@ public class CustomerServiceImpl implements CustomerService {
     private final ObjectMapper objectMapper;
 
     @Override
+    @Transactional
     public CustomerDto createCustomer(CustomerDto customer) {
         Customer newCustomer = customerRepository.save(objectMapper.convertValue(customer,Customer.class));
         return objectMapper.convertValue(newCustomer,CustomerDto.class);

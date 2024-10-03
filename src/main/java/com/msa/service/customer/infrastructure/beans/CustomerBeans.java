@@ -1,4 +1,4 @@
-package com.msa.service.customer.infrastructure.configuration;
+package com.msa.service.customer.infrastructure.beans;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.msa.service.customer.application.CustomerServiceImpl;

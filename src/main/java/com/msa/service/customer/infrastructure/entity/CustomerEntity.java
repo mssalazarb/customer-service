@@ -16,7 +16,7 @@ public class CustomerEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ctr_id", nullable = false)
-    private Integer id;
+    private Long id;
 
     @Column(name = "ctr_dni", nullable = false, unique = true)
     //@Column(name = "ctr_dni", nullable = false)
