@@ -2,7 +2,7 @@ CREATE TABLE customers(
     ctr_id SERIAL PRIMARY KEY ,
     ctr_dni VARCHAR NOT NULL UNIQUE,
     ctr_f_name VARCHAR NOT NULL ,
-    crt_l_name VARCHAR NOT NULL ,
+    ctr_l_name VARCHAR NOT NULL ,
     ctr_genre VARCHAR NOT NULL
 );
 
