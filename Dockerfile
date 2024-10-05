@@ -1,4 +1,4 @@
-FROM gradle:8.8.0-jdk22-alpine AS build
+FROM gradle:8.10.2-jdk22-alpine AS build
 COPY --chown=gradle:gradle . /home/gradel/src/producer
 WORKDIR /home/gradle/src/producer
 RUN gradle build --no-daemon --stacktrace -x test
