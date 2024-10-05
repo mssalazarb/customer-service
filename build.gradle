@@ -15,8 +15,6 @@ java {
     }
 }
 
-apply plugin: "org.openapi.generator"
-
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
@@ -63,7 +61,6 @@ tasks.register('buildSpringServer', org.openapitools.generator.gradle.plugin.tas
 }
 
 compileJava.dependsOn tasks.named("openApiGenerate")
-
 sourceSets.main.java.srcDirs = ["$buildDir/generated/src/main/java", "src/main/java"]
 
 tasks.named('test') {
