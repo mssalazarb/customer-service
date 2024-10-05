@@ -39,9 +39,11 @@ dependencies {
     implementation 'io.swagger.core.v3:swagger-annotations:2.2.15'
     implementation 'org.flywaydb:flyway-core'
     implementation 'org.flywaydb:flyway-database-postgresql'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
 }
 
-tasks.register('buildSpringServer', org.openapitools.generator.gradle.plugin.tasks.GenerateTask) {
+openApiGenerate {
+    inputSpec.set("$rootDir/src/main/resources/openapi.yaml")
     generatorName = "spring"
     inputSpec = "$rootDir/src/main/resources/openapi.yaml".toString()
     outputDir = "$buildDir/generated".toString()
