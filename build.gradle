@@ -62,7 +62,7 @@ tasks.register('buildSpringServer', org.openapitools.generator.gradle.plugin.tas
     ]
 }
 
-compileJava.dependsOn buildSpringServer
+compileJava.dependsOn tasks.named("openApiGenerate")
 
 sourceSets.main.java.srcDirs = ["$buildDir/generated/src/main/java", "src/main/java"]
 
