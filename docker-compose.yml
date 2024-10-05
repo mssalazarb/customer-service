@@ -10,7 +10,7 @@ services:
       - ./reports:/app/build
     environment:
       - SPRING_PROFILES_ACTIVE=test
-      - APP_NAME=customers-service
+      - APP_NAME=customer-service
       - DB_HOST=customers_service_db
       - DB_PORT=5432
       - DB_NAME=customers_service
@@ -19,6 +19,7 @@ services:
     depends_on:
       - db
     command: >
+      chmod +x ./gradlew &&
       ./gradlew --no-daemon
       -g ./.gradle-cache
       test
