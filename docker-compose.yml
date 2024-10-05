@@ -10,12 +10,12 @@ services:
       - ./reports:/app/build
     environment:
       - SPRING_PROFILES_ACTIVE=test
-      - APP_NAME=customer-service
-      - DB_HOST=customer_service_db
+      - APP_NAME=customers-service
+      - DB_HOST=customers_service_db
       - DB_PORT=5432
-      - DB_NAME=customer_service
-      - DB_USER=customer_service
-      - DB_PASSWORD=customer_service
+      - DB_NAME=customers_service
+      - DB_USER=customers_service
+      - DB_PASSWORD=customers_service
     depends_on:
       - db
     command: >
@@ -24,8 +24,8 @@ services:
       test
   db:
     image: postgres:latest
-    container_name: postgres_test
+    container_name: customers_service_db
     environment:
-      POSTGRES_DB: customer_service_db
-      POSTGRES_USER: customer_service
-      POSTGRES_PASSWORD: customer_service
+      POSTGRES_DB: customers_service_db
+      POSTGRES_USER: customers_service
+      POSTGRES_PASSWORD: customers_service

@@ -20,7 +20,7 @@ externalDocs:
   description: Historia de usuario
   url: https://github.com/users/mssalazarb/projects/6/views/1?pane=issue&itemId=80821510
 servers:
-  - url: http://customer-service.docker.localhost/api
+  - url: http://customers-service.docker.localhost/api
     description: Service
   - url: http://grupo1.docker.localhost/api/v1
     description: API Gateway
